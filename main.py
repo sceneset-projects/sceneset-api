@@ -9,5 +9,9 @@ def read_root():
 
 @app.get("/users")
 def get_users():
-    response = supabase.table("users").select("*").execute()
-    return response.data
+    try:
+        response = supabase.table("users").select("*").execute()
+        return response.data
+    except Exception as e:
+        print("🔥 Supabase error:", e)
+        return {"error": str(e)}
